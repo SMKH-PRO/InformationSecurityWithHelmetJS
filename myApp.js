@@ -46,11 +46,11 @@ HTTP Strict Transport Security (HSTS) is a web security policy which helps to pr
 Configure helmet.hsts() to use HTTPS for the next 90 days. Pass the config object {maxAge: timeInSeconds, force: true}. You can create a variable ninetyDaysInSeconds = 90*24*60*60; to use for the timeInSeconds. Replit already has hsts enabled. To override its settings you need to set the field "force" to true in the config object. We will intercept and restore the Replit header, after inspecting it for testing.
 Note: Configuring HTTPS on a custom website requires the acquisition of a domain, and a SSL/TLS Certificate.
  **/
-let ninetyDaysInSeconds = 90*24*60*60;
+let ninetyDaysInSeconds = 90 * 24 * 60 * 60;
 app.use(
   helmet.hsts({
     maxAge: ninetyDaysInSeconds,
-    force:true
+    force: true
   })
 );
 
@@ -61,8 +61,16 @@ app.use(
  Use the helmet.dnsPrefetchControl() method on your server.
  **/
 
- app.use(
+app.use(
   helmet.dnsPrefetchControl()
+);
+
+/**
+  If you are releasing an update for your website, and you want the users to always download the newer version, you can (try to) disable caching on client’s browser. It can be useful in development too. Caching has performance benefits, which you will lose, so only use this option when there is a real need.
+ */
+
+app.use(
+  helmet.noCache()
 );
 module.exports = app;
 const api = require('./server.js');
