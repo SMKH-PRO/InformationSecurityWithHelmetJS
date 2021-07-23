@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
 const helmet = require("helmet");
+
+helmet.hidePoweredBy()
+
 app.use(helmet());
 
+module.exports = app;
 const api = require('./server.js');
 app.use(express.static('public'));
 app.disable('strict-transport-security');
@@ -14,3 +18,4 @@ let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Your app is listening on port ${port}`);
 });
+
