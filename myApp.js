@@ -12,6 +12,8 @@ app.use(
   })
 );
 
+app.use(helmet.xssFilter());
+
 
 module.exports = app;
 const api = require('./server.js');
